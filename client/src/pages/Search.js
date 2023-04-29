@@ -28,7 +28,7 @@ const Search = () => {
                <Card maxW="xs">
                  <CardBody>
                    <Image
-                     src={`/api/v1/product/product-photo/${p._id}`}
+                     src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                      alt="product image"
                      borderRadius="lg"
                    />
