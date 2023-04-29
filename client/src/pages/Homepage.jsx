@@ -57,7 +57,7 @@ const Homepage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
+        `/api/v1/product/product-list/${page}`
       );
       setLoading(false);
       setProducts(data.products);
@@ -77,7 +77,7 @@ const Homepage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
+        `/api/v1/product/product-list/${page}`
       );
       setLoading(false);
       setProducts([...products, ...data?.products]);
@@ -92,7 +92,7 @@ const Homepage = () => {
     try {
     
       const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/product/product-filters`,
+        `/api/v1/product/product-filters`,
         {
           checked,
           radio,
@@ -118,7 +118,7 @@ const Homepage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/category/get-category`
+        `/api/v1/category/get-category`
       );
      
       if (data?.success) {
@@ -144,7 +144,7 @@ const Homepage = () => {
   const getTotal = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-count`
+        `/api/v1/product/product-count`
       );
       setTotal(data?.total);
     } catch (error) {
@@ -233,7 +233,7 @@ const Homepage = () => {
                     <Card maxW="xs">
                       <CardBody>
                         <Image
-                          src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                          src={`/api/v1/product/product-photo/${p._id}`}
                           alt="product image"
                           borderRadius="lg"
                         />

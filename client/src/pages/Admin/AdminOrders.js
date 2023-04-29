@@ -27,7 +27,7 @@ const AdminOrders = () => {
   const [auth, setAuth] = useAuth();
   const getOrders = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/all-orders`);
+      const { data } = await axios.get(`/api/v1/auth/all-orders`);
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ const AdminOrders = () => {
   const handleChange = async (orderId, event) => {
     try {
       const value = event.target.value; // Extract the value from the event object
-      const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/order-status/${orderId}`, {
+      const { data } = await axios.put(`/api/v1/auth/order-status/${orderId}`, {
         status: value,
       });
       getOrders();
@@ -107,7 +107,7 @@ const AdminOrders = () => {
                       <Image
                         objectFit='cover'
                         maxW={{ base: '100%', sm: '200px' }}
-                        src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                        src={`/api/v1/product/product-photo/${p._id}`}
                         className="card-img-top"
                         alt={p.name}
                         alt='Caffe Latte'
