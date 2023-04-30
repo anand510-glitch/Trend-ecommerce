@@ -201,11 +201,13 @@ export const updateProductController = async (req, res) => {
 export const productFiltersController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
-  if(radio.length>0) { const [minPrice, maxPrice] = radio.split(',').map(Number);}
+ 
     let args = {};
     console.log(radio)
     if (checked.length > 0) args.category = checked;
-    if(radio.length>0){ if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+    if(radio.length>0){
+       const [minPrice, maxPrice] = radio.split(',').map(Number);
+      if (!isNaN(minPrice) && !isNaN(maxPrice)) {
       args.price = { $gte: minPrice, $lte: maxPrice };
     }}
     console.log(args)
