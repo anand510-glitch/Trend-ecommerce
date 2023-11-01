@@ -3,10 +3,10 @@ import React, { StrictMode } from 'react';
 import {BrowserRouter} from 'react-router-dom'
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
-import {SearchProvider} from "./context/search.jsx"
+import {SearchProvider} from "./context/search.js"
 import "./index.css"
 import { AuthProvider } from './context/auth';
-import {CartProvider} from "./context/cart.jsx"
+import {CartProvider} from "./context/cart.js"
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 

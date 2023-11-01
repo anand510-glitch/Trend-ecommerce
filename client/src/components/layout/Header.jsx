@@ -57,7 +57,7 @@ const Header = () => {
   const handleCategoryChange = (event) => {
     const categoryValue = event.target.value;
     setSelectedCategory(categoryValue);
-   
+    // Assuming that you have defined routes for each category page
    navigate(`/category/${categoryValue}`);
   };
 
@@ -148,18 +148,18 @@ const Header = () => {
 !auth.user?(<>
   
   <RouterLink to={"/login"}>
-              <Text  mb={"auto"} >
-               Login
+              <Text fontWeight="medium"  >
+               login
               </Text>
             </RouterLink>
   <RouterLink to={"/register"}>
-              <Text  mb={"auto"} >
+              <Text fontWeight="medium"  >
               Register
               </Text>
             </RouterLink>
 </>):(<>  
   <RouterLink to={`/dashboard/${auth?.user?.role===1?"admin":"user"}`}>
-              <Text   mb={"auto"} >
+              <Text fontWeight="medium"  mb={"auto"} >
              Dashboard
               </Text>
             </RouterLink>
@@ -190,13 +190,13 @@ const Header = () => {
 
          }
          
-        
+           <Button size={"sm"} mt={"auto"} mb={"auto"} onClick={toggleColorMode}>
+                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              </Button>
          
         </Stack>
       </Box>
-      <Button size={"sm"} mt={"auto"} mb={"auto"} onClick={toggleColorMode}>
-                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-              </Button>
+
       <Box
         display={{ base: isOpen ? "block" : "none", md: "none" }}
         mt={{ base: 4, md: 0 }}

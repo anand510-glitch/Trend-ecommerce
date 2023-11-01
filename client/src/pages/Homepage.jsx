@@ -27,9 +27,9 @@ import {
   IconButton,
   Checkbox,
   CheckboxGroup,
- 
+  RadioGroup,
+  Radio,
 } from '@chakra-ui/react';
-import { Radio } from "antd";
 import axios from 'axios';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { FaHeart, FaShoppingCart } from 'react-icons/fa';
@@ -38,9 +38,9 @@ import { AiOutlineReload } from 'react-icons/ai';
 import { useCart } from '../context/cart';
 import CaptionCarousel from '../components/layout/Carasoul';
 import Carasoul from '../components/layout/Carasoul';
-import "./Homepage.css"
 
 const Homepage = () => {
+ 
   const [cart,setCart]=useCart()
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Homepage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `/api/v1/product/product-list/${page}`
+        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
       );
       setLoading(false);
       setProducts(data.products);
@@ -77,7 +77,7 @@ const Homepage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `/api/v1/product/product-list/${page}`
+        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
       );
       setLoading(false);
       setProducts([...products, ...data?.products]);
@@ -92,7 +92,7 @@ const Homepage = () => {
     try {
     
       const { data } = await axios.post(
-        `/api/v1/product/product-filters`,
+        `${process.env.REACT_APP_API}/api/v1/product/product-filters`,
         {
           checked,
           radio,
@@ -118,7 +118,7 @@ const Homepage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/category/get-category`
+        `${process.env.REACT_APP_API}/api/v1/category/get-category`
       );
      
       if (data?.success) {
@@ -144,7 +144,7 @@ const Homepage = () => {
   const getTotal = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/product/product-count`
+        `${process.env.REACT_APP_API}/api/v1/product/product-count`
       );
       setTotal(data?.total);
     } catch (error) {
@@ -171,15 +171,14 @@ const Homepage = () => {
         <Box p={{ base: 4, md: 8 }}>
        
           <Flex flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-            <Box w={{ base: '70%', md: '20%' }} pr={{ md: 2 }}>
-              <Heading size={'md'} mb={{ base: 2, md: 4}} mt={2}>
+            <Box w={{ base: '90%', md: '20%' }} pr={{ md: 2 }}>
+              <Heading size={'md'} mb={{ base: 4, md: 8 }}>
                 Filter By Category
               </Heading>
               {categories?.map(c => (
                 <CheckboxGroup colorScheme="green">
                   <Stack spacing={[1, 5]} direction={['column', 'row']}>
                     <Checkbox
-                     checkedColor="red"
                       onChange={e => handleFilter(e.target.checked, c._id)}
                     >
                       {c.name}
@@ -188,21 +187,18 @@ const Homepage = () => {
                 </CheckboxGroup>
               ))}
 
-
-<Heading mt={'3'} size={'md'} mb={{ base: 2, md: 2 }}>
+<Heading mt={'2'} size={'md'} mb={{ base: 4, md: 8 }}>
   Filter By Price
 </Heading>
+     <RadioGroup  onChange={setRadio} value={radio} >
+  {Prices?.map((p) => (
+    <div key={p._id}>
+      <Radio value={p?.array}>{p.name}</Radio>
 
-<Radio.Group onChange={(e) => setRadio(e.target.value)}>
-              {Prices?.map((p) => (
-                <div key={p._id}>
-                  <Radio value={p.array}>{p.name}</Radio>
-                </div>
-              ))}
-            </Radio.Group>
-           
+    </div>
+  ))}
+</RadioGroup>
 
-           
               <button
                 className="btn btn-danger m-2"
                 onClick={() => window.location.reload()}
@@ -211,7 +207,7 @@ const Homepage = () => {
               </button>
             </Box>
 
-            <Box w={{ base: '80%', md: '75%' }} ml="8px">
+            <Box w={{ base: '80%', md: '75%' }} ml="auto" mr="auto">
               
               <Center>
                 <Heading as={'h6'} mb={{ base: 4, md: 8 }}>
@@ -237,7 +233,7 @@ const Homepage = () => {
                     <Card maxW="xs">
                       <CardBody>
                         <Image
-                          src={`/api/v1/product/product-photo/${p._id}`}
+                          src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                           alt="product image"
                           borderRadius="lg"
                         />

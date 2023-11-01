@@ -201,9 +201,16 @@ export const updateProductController = async (req, res) => {
 export const productFiltersController = async (req, res) => {
   try {
     const { checked, radio } = req.body;
+ 
     let args = {};
+    console.log(radio)
     if (checked.length > 0) args.category = checked;
-    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+    if(radio.length>0){
+       const [minPrice, maxPrice] = radio.split(',').map(Number);
+      if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+      args.price = { $gte: minPrice, $lte: maxPrice };
+    }}
+    console.log(args)
     const products = await productModel.find(args);
     res.status(200).send({
       success: true,

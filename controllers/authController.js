@@ -2,7 +2,6 @@ import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js"
 import orderModel from "../models/orderModel.js";
 import JWT from "jsonwebtoken";
-
 export const registerController = async (req, res) => {
     try {
       const { name, email, password, phone, address, answer } = req.body;
@@ -246,7 +245,3 @@ export const orderStatusController = async (req, res) => {
     });
   }
 };
-
-
-
-

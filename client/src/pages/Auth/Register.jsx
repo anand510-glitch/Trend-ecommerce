@@ -12,8 +12,6 @@ import {
   AvatarGroup,
   useBreakpointValue,
   useToast,
-  InputRightElement,
-  InputGroup
 } from '@chakra-ui/react';
 import Layout from '../../components/layout/Layout';
 import { useState } from 'react';
@@ -45,8 +43,6 @@ const avatars = [
 
 
 const Register=()=> {
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
   const toast = useToast()
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -57,18 +53,8 @@ const Register=()=> {
   const [answer, setAnswer] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(password.length<7){
-      toast({
-        title: 'Password Must be 8 Characters Long',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      })
-      return;
-    }
     try{
-     
-     const res= await axios.post(`/api/v1/auth/register`,{name,email,password,phone,address,answer})
+     const res= await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/register`,{name,email,password,phone,address,answer})
 
      if(res.data.success){
       toast({
@@ -224,9 +210,7 @@ const Register=()=> {
                 }}
                 required
               />
-              <InputGroup>
               <Input
-               type={show ? 'text' : 'password'}
               required
                value={password}
                onChange={(e)=>setPassword(e.target.value)}
@@ -238,14 +222,7 @@ const Register=()=> {
                 _placeholder={{
                   color: 'gray.500',
                 }}
-              /> 
-      <InputRightElement width='4.5rem'>
-        <Button h='1.75rem' size='sm' onClick={handleClick}>
-          {show ? 'Hide' : 'Show'}
-        </Button>
-      </InputRightElement>
-
-            </InputGroup>
+              />
               <Input
               required
                value={phone}
