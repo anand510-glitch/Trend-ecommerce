@@ -11,6 +11,8 @@ import {
     Avatar,
     AvatarGroup,
     useBreakpointValue,
+    InputGroup,
+    InputRightElement,
     useToast,
   } from '@chakra-ui/react';
   import Layout from '../../components/layout/Layout';
@@ -44,6 +46,8 @@ import { useAuth } from '../../context/auth';
   
   
   const Login=()=> {
+    const [show, setShow] = useState(false)
+    const handleClick = () => setShow(!show)
     const toast = useToast()
     const navigate = useNavigate();
     const [auth,setAuth]=useAuth()
@@ -53,7 +57,7 @@ import { useAuth } from '../../context/auth';
       e.preventDefault();
       
       try{
-       const res= await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`,{email,password})
+       const res= await axios.post(`/api/v1/auth/login`,{email,password})
   
        if(res.data.success){
         toast({
@@ -206,7 +210,9 @@ import { useAuth } from '../../context/auth';
                   }}
                   required
                 />
+                <InputGroup >
                 <Input
+                type={show ? 'text' : 'password'}
                 required
                  value={password}
                  onChange={(e)=>setPassword(e.target.value)}
@@ -219,7 +225,12 @@ import { useAuth } from '../../context/auth';
                     color: 'gray.500',
                   }}
                 />
-               
+                  <InputRightElement width='4.5rem'>
+        <Button h='1.75rem' size='sm' onClick={handleClick}>
+          {show ? 'Hide' : 'Show'}
+        </Button>
+      </InputRightElement>
+               </InputGroup>
               </Stack>
               <Button
               onClick={handleSubmit}

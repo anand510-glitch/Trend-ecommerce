@@ -71,6 +71,9 @@ const AdminMenu= () => {
                 <Button onClick={onClose} variant={"ghost"} colorScheme={"purple"}>
                    <Link to= {'/dashboard/admin/products'}>Products</Link> 
                 </Button>
+                <Button onClick={onClose} variant={"ghost"} colorScheme={"purple"}>
+                   <Link to= {'/dashboard/admin/users'}>All users</Link> 
+                </Button>
              
 
             </VStack>
